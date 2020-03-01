@@ -22,13 +22,15 @@ public class AuthorController {
     }
 
     private void selectAllAuthors() {
-        authorService.findAllAuthors();
+        for (Author author : authorService.findAllAuthors()){
+            System.out.println("name :" + author.getName() + " ," + "surname :" +author.getSurname());
+        }
     }
 
     private void selectAuthor(){
         System.out.println("Please write author id");
         int id = scanner.nextInt();
-        authorService.findAuthorById(id);
+        System.out.println(authorService.findAuthorById(id));
     }
 
     private void updateAuthor() {

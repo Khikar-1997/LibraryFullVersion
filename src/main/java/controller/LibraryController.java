@@ -1,5 +1,6 @@
 package controller;
 
+import book.Book;
 import service.LibraryService;
 
 import java.util.Scanner;
@@ -13,7 +14,11 @@ public class LibraryController {
     public static void findAllBooksByState(){
         LibraryService libraryService = LibraryService.instance;
         String state = "NOT_TAKEN";
-        System.out.println(libraryService.findAllBooksByState(state));
+        for (Book book : libraryService.findAllBooksByState(state)){
+            System.out.println("name :" + book.getName() + " ," + "description :" + book.getDescription() +
+                    " ," + "number of pages :" + book.getNumberOfPages() + " ," + "state :" +
+                    book.getState());
+        }
     }
 
     public static void takeBook() {

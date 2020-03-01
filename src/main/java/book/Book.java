@@ -15,7 +15,7 @@ public class Book {
         if (state.equals(String.valueOf(State.valueOf(state)))){
             this.state = state;
         } else {
-            throw new RuntimeException("!!!!!!");
+            throw new RuntimeException("!!!!!! ");
         }
     }
 

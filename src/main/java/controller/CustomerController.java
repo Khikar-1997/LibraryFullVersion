@@ -9,7 +9,8 @@ public class CustomerController {
     private static final CustomerController instance = new CustomerController();
     private CustomerService customerService = CustomerService.instance;
     private Scanner scanner = new Scanner(System.in);
-    private CustomerController(){
+
+    private CustomerController() {
     }
 
     private void createCustomer() {
@@ -19,17 +20,20 @@ public class CustomerController {
         String surname = scanner.nextLine();
         System.out.println("Please write customer password");
         String password = scanner.nextLine();
-        customerService.create(new Customer(name,surname,password));
+        customerService.create(new Customer(name, surname, password));
     }
 
     private void selectAllCustomers() {
-        customerService.findAllCustomers();
+        for (Customer customer : customerService.findAllCustomers()) {
+            System.out.println("name :" + customer.getName() + " ," + "surname :"
+                    + customer.getSurname() + " ," + "password :" + customer.getPassword());
+        }
     }
 
-    private void selectCustomer(){
+    private void selectCustomer() {
         System.out.println("Please write customer id");
         int id = scanner.nextInt();
-        customerService.findCustomerById(id);
+        System.out.println(customerService.findCustomerById(id));
     }
 
     private void updateCustomer() {
@@ -41,7 +45,7 @@ public class CustomerController {
         String surname = scanner.nextLine();
         System.out.println("Please write customer new password");
         String password = scanner.nextLine();
-        customerService.update(id,new Customer(name,surname,password));
+        customerService.update(id, new Customer(name, surname, password));
     }
 
     private void deleteCustomer() {
@@ -56,7 +60,7 @@ public class CustomerController {
         String test = scanner.nextLine();
         System.out.println("Plese write customer password");
         String password = scanner.nextLine();
-        if (customerService.login(id,password)) {
+        if (customerService.login(id, password)) {
             System.out.println("You are login");
             System.out.println("________________________________________");
             System.out.println("     Save or not save password          ");

@@ -16,11 +16,11 @@ public class Database {
 
     private void createDatabase() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL_SERVER, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "CREATE DATABASE IF NOT EXISTS Library";
+
+                String query = "CREATE DATABASE library;";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.executeUpdate();
-            }
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
@@ -28,11 +28,11 @@ public class Database {
 
     private void createBooksTable() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "USE library;" +
-                        "CREATE TABLE IF NOT EXISTS Books" +
+
+                String query =
+                        "CREATE TABLE books" +
                         "(" +
-                        "id INT AUTO_INCREMENT NOT NULL ," +
+                        "id INT NOT NULL AUTO_INCREMENT ," +
                         "name VARCHAR(255) NOT NULL ," +
                         "description VARCHAR(255) NOT NULL ," +
                         "number_of_pages INT NOT NULL ," +
@@ -40,8 +40,8 @@ public class Database {
                         "PRIMARY KEY (id)" +
                         ");";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.execute();
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
@@ -49,18 +49,18 @@ public class Database {
 
     private void createAuthorsTable() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "USE library;" +
-                        "CREATE TABLE IF NOT EXISTS Authors" +
+
+                String query =
+                        "CREATE TABLE authors" +
                         "(" +
-                        "id INT AUTO_INCREMENT NOT NULL ," +
+                        "id INT NOT NULL AUTO_INCREMENT ," +
                         "name VARCHAR(255) NOT NULL ," +
                         "surname VARCHAR(255) NOT NULL ," +
                         "PRIMARY KEY (id)" +
                         ");";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.execute();
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
@@ -68,19 +68,19 @@ public class Database {
 
     private void createCustomersTable() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "USE library;" +
-                        "CREATE TABLE IF NOT EXISTS Customers" +
+
+                String query =
+                        "CREATE TABLE customers" +
                         "(" +
-                        "id INT AUTO_INCREMENT NOT NULL ," +
+                        "id INT NOT NULL AUTO_INCREMENT ," +
                         "name VARCHAR(255) NOT NULL ," +
                         "surname VARCHAR(255) NOT NULL ," +
                         "password VARCHAR(255) NOT NULL ," +
                         "PRIMARY KEY (id)" +
                         ");";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.execute();
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
@@ -88,11 +88,11 @@ public class Database {
 
     private void createOrderTable() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "USE library;" +
-                        "CREATE TABLE IF NOT EXISTS Orders" +
+
+                String query =
+                        "CREATE TABLE Orders" +
                         "(" +
-                        "id INT AUTO_INCREMENT NOT NULL ," +
+                        "id INT NOT NULL AUTO_INCREMENT ," +
                         "return_date DATE," +
                         "customer_id INT UNIQUE ," +
                         "book_id INT UNIQUE ," +
@@ -101,8 +101,8 @@ public class Database {
                         "FOREIGN KEY (book_id) REFERENCES  books(id) ON DELETE CASCADE " +
                         ");";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.execute();
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
@@ -110,11 +110,11 @@ public class Database {
 
     private void createTableBooksAndAuthors() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "USE library;" +
-                        "CREATE TABLE IF NOT EXISTS Books_and_authors" +
+
+                String query =
+                        "CREATE TABLE Books_and_authors" +
                         "(" +
-                        "id INT AUTO_INCREMENT NOT NULL ," +
+                        "id INT NOT NULL AUTO_INCREMENT," +
                         "book_id INT," +
                         "author_id INT," +
                         "PRIMARY KEY (id)," +
@@ -122,8 +122,8 @@ public class Database {
                         "FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE CASCADE " +
                         ");";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.execute();
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
@@ -131,11 +131,11 @@ public class Database {
 
     private void createArchiveTable() {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            if (conn != null) {
-                String query = "USE library;" +
-                        "CREATE TABLE IF NOT EXISTS Archive" +
+
+                String query =
+                        "CREATE TABLE Archive" +
                         "(" +
-                        "id INT AUTO_INCREMENT NOT NULL ," +
+                        "id INT NOT NULL AUTO_INCREMENT ," +
                         "customer_id INT UNIQUE ," +
                         "book_id INT ," +
                         "PRIMARY KEY (id)," +
@@ -143,8 +143,8 @@ public class Database {
                         "FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE " +
                         ");";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.executeUpdate();
-            }
+                preparedStatement.execute();
+
         } catch (SQLException ex) {
             ex.getMessage();
         }

@@ -14,7 +14,7 @@ public class BookService {
     public void create(Book book){
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "INSERT INTO Books(name,description,number_of_pages,state) VALUES(?,?,?,?)";
+                String query = "INSERT INTO books(name,description,number_of_pages,state) VALUES(?,?,?,?)";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1,book.getName());
                 preparedStatement.setString(2,book.getDescription());
@@ -29,17 +29,17 @@ public class BookService {
 
     public ArrayList<Book> findAllBooks(){
         ArrayList<Book> books = new ArrayList<>();
-        Book book = new Book();
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if (conn != null){
-                String query = "SELECT * FROM Books";
+                String query = "SELECT * FROM books";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
+                    Book book = new Book();
                     book.setName(resultSet.getString("name"));
                     book.setDescription(resultSet.getString("description"));
                     book.setNumberOfPages(resultSet.getInt("number_of_pages"));
-                    book.setState(resultSet.getString("sate"));
+                    book.setState(resultSet.getString("state"));
                     books.add(book);
                 }
             }
@@ -53,7 +53,7 @@ public class BookService {
         Book book = new Book();
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if (conn != null){
-                String query = "SELECT * FROM Books WHERE id = ?";
+                String query = "SELECT * FROM books WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1,id);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -73,7 +73,7 @@ public class BookService {
     public void update(int id,Book book){
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "UPDATE Books SET name = ?,description = ?,number_of_pages = ?,state = ?";
+                String query = "UPDATE books SET name = ?,description = ?,number_of_pages = ?,state = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1,book.getName());
                 preparedStatement.setString(2,book.getDescription());
@@ -89,7 +89,7 @@ public class BookService {
     public void delete(int id){
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "DELETE FROM Authors WHERE id = ?";
+                String query = "DELETE FROM authors WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1,id);
                 preparedStatement.execute();

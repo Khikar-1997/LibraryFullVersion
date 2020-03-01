@@ -14,7 +14,7 @@ public class AuthorService {
     public void create(Author author) {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.USER)) {
             if (conn != null) {
-                String query = "INSERT INTO Authors(name,surname) VALUES (?,?)";
+                String query = "INSERT INTO authors(name,surname) VALUES (?,?)";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1, author.getName());
                 preparedStatement.setString(2, author.getSurname());
@@ -27,13 +27,13 @@ public class AuthorService {
 
     public ArrayList<Author> findAllAuthors() {
         ArrayList<Author> authors = new ArrayList<>();
-        Author author = new Author();
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.USER)) {
             if (conn != null) {
-                String query = "SELECT * FROM Authors;";
+                String query = "SELECT * FROM authors;";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
+                    Author author = new Author();
                     author.setName(resultSet.getString("name"));
                     author.setSurname(resultSet.getString("surname"));
                     authors.add(author);
@@ -49,7 +49,7 @@ public class AuthorService {
         Author author = new Author();
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.USER)) {
             if (conn != null) {
-                String query = "SELECT * FROM Authors WHERE id = ?";
+                String query = "SELECT * FROM authors WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -67,7 +67,7 @@ public class AuthorService {
     public void update(int id, Author author) {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "UPDATE Authors SET name = ?, surname = ? WHERE id = ?";
+                String query = "UPDATE authors SET name = ?, surname = ? WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1,author.getName());
                 preparedStatement.setString(2,author.getSurname());
@@ -82,7 +82,7 @@ public class AuthorService {
     public void delete(int id) {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "DELETE FROM Authors WHERE id = ?";
+                String query = "DELETE FROM authors WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1,id);
                 preparedStatement.execute();

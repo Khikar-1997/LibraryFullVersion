@@ -63,7 +63,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "customer.Customer{" +
+        return "customer.Customer{ " +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", password='" + password + '\'' +

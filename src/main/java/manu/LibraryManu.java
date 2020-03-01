@@ -50,7 +50,7 @@ public class LibraryManu {
                     LibraryController.returnBook();
                     break;
                 case 7:
-                    System.out.println("Goodbye");
+                    System.out.println("Goodbye ");
                     break;
                 default:
                     System.out.println("Plese write valid order");

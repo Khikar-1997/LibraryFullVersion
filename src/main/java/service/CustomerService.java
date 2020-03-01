@@ -15,7 +15,7 @@ public class CustomerService {
     public void create(Customer customer){
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "INSERT INTO Customers(name,surname,password) VALUES(?,?,?)";
+                String query = "INSERT INTO customers(name,surname,password) VALUES(?,?,?)";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1,customer.getName());
                 preparedStatement.setString(2,customer.getSurname());
@@ -29,13 +29,14 @@ public class CustomerService {
 
     public ArrayList<Customer> findAllCustomers(){
         ArrayList<Customer> customers = new ArrayList<>();
-        Customer customer = new Customer();
+
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "SELECT * FROM Customers";
+                String query = "SELECT * FROM customers";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
+                    Customer customer = new Customer();
                     customer.setName(resultSet.getString("name"));
                     customer.setSurname(resultSet.getString("surname"));
                     customer.setPassword(resultSet.getString("password"));
@@ -52,7 +53,7 @@ public class CustomerService {
         Customer customer = new Customer();
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "SELECT * FROM Customers WHERE id = ?";
+                String query = "SELECT * FROM customers WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1,id);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -71,7 +72,7 @@ public class CustomerService {
     public void update(int id,Customer customer){
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "UPDATE Customers SET name = ?,surname = ?,password = ?";
+                String query = "UPDATE customers SET name = ?,surname = ?,password = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1,customer.getName());
                 preparedStatement.setString(2,customer.getSurname());
@@ -86,7 +87,7 @@ public class CustomerService {
     public void delete(int id){
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.USER)) {
             if(conn != null){
-                String query = "DELETE FROM Customers WHERE id = ?";
+                String query = "DELETE FROM customers WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1,id);
                 preparedStatement.execute();
@@ -100,7 +101,7 @@ public class CustomerService {
         Customer customer = new Customer();
         try(Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL,MariaDbConstant.USER,MariaDbConstant.PASS)){
             if (conn != null){
-                String query = "SELECT password FROM Customers WHERE id = ?";
+                String query = "SELECT password FROM customers WHERE id = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setInt(1,customerId);
                 ResultSet resultSet = preparedStatement.executeQuery();

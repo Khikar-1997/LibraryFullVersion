@@ -1,6 +1,6 @@
 package book;
 
 public enum State {
-    NOT_TAKEN,
+    NOT_TAKEN ,
     TAKEN
 }

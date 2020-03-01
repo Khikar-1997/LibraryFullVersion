@@ -10,7 +10,7 @@ public class BookController {
     private BookService bookService = BookService.instance;
     private Scanner scanner = new Scanner(System.in);
 
-    private BookController(){
+    private BookController() {
     }
 
     private void createBook() {
@@ -23,17 +23,22 @@ public class BookController {
         String test = scanner.nextLine();
         System.out.println("Please write book state");
         String state = scanner.nextLine();
-        bookService.create(new Book(name,description,pageNumbers,state));
+        bookService.create(new Book(name, description, pageNumbers, state));
     }
 
     private void selectAllBooks() {
-        bookService.findAllBooks();
+        for (Book book : bookService.findAllBooks()) {
+            System.out.println("name :" + book.getName() + " ," + "description :" + book.getDescription() +
+                    " ," + "number of pages :" + book.getNumberOfPages() + " ," + "state :" +
+                    book.getState());
+        }
+
     }
 
-    private void selectBook(){
+    private void selectBook() {
         System.out.println("Please write book id");
         int id = scanner.nextInt();
-        bookService.findBookById(id);
+        System.out.println(bookService.findBookById(id));
     }
 
     private void updateBook() {
@@ -48,7 +53,7 @@ public class BookController {
         String test = scanner.nextLine();
         System.out.println("Please write book new state");
         String state = scanner.nextLine();
-        bookService.update(id,new Book(name,description,pageNumbers,state));
+        bookService.update(id, new Book(name, description, pageNumbers, state));
     }
 
     private void deleteBook() {
